@@ -48,8 +48,11 @@ class InteractiveRecord
     # name = "Jan"
 
     def self.find_by(attribute)
+        attr_value = attribute.values.first
+        data_type = attr_value.class == Fixnum ? attr_value : #{attr_value}
+        DB[:conn].execute("SELECT * FROM #{self.table_name} WHERE #{attribute.keys.first} = #{data_type}")
         binding.pry 
-        DB[:conn].execute("SELECT * FROM #{self.table_name}")
     end 
+
     # attribute = {:name=>"Susan"}
 end
